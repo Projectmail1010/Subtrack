@@ -1,0 +1,51 @@
+CREATE TABLE subscriptions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    platform VARCHAR(100)    NOT NULL,
+    name     VARCHAR(255)    NOT NULL,
+    cost     DECIMAL(10,2)   NOT NULL,
+    auto_pay       BOOLEAN  DEFAULT FALSE,
+    billing_cycle ENUM('None', 'Daily', 'Weekly', 'Monthly', 'Quarterly', 'Yearly') NOT NULL DEFAULT 'None',
+    duration_days  INT DEFAULT NULL,
+    start_date     DATE     NOT NULL,
+    next_due_date  DATE,
+    is_active      BOOLEAN  DEFAULT TRUE,
+    created_at     TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE payments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    platform_name VARCHAR(255) NOT NULL,
+    subscription_name VARCHAR(255) NOT NULL,
+    is_auto_paid BOOLEAN NOT NULL,
+    amount DECIMAL(10, 2) NOT NULL,
+    payment_date DATE NOT NULL,
+    sub_renewed BOOLEAN NOT NULL DEFAULT false,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE utility_bills (
+    bill_id INT AUTO_INCREMENT PRIMARY KEY,
+    service_type VARCHAR(100) NOT NULL,        -- e.g., 'Electricity', 'Water', 'Internet'
+    reference_number VARCHAR(50) NOT NULL,   -- Unique bill reference number
+    bill_date DATE NOT NULL,                  
+    amount DECIMAL(10, 2) NOT NULL,           
+    due_date DATE NOT NULL,                   
+    paid_date DATE DEFAULT NULL,              
+    is_paid BOOLEAN DEFAULT FALSE,  
+    overdue_charge_perday DECIMAL(10, 2) NOT NULL, -- Optional overdue charge per day          
+    description TEXT,                          -- Optional description
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE utility_bills_payments (
+    payment_id SERIAL PRIMARY KEY,                 
+    service_type VARCHAR(100) NOT NULL,        
+    bill_id INT NOT NULL,                          
+    bill_reference_number VARCHAR(100) NOT NULL,   
+    bill_amount DECIMAL(10, 2) NOT NULL,               
+    total_overdue_charge DECIMAL(10, 2) DEFAULT 0.00, 
+    total_amount DECIMAL(10, 2) NOT NULL,
+    payment_date DATE NOT NULL,                    
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
+);
+

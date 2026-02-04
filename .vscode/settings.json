@@ -1,0 +1,9 @@
+{
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "github.copilot.enable": {
+        "plaintext": true,
+        "markdown": true,
+        "scminput": true,
+        "java": true
+    }
+}
