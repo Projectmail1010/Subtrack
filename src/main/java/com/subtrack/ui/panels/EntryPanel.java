@@ -31,7 +31,15 @@ public class EntryPanel {
         sidePanel.setPreferredSize(new Dimension(160, 0));
 
         // Icon
-        ImageIcon icon = new ImageIcon("D:\\Java Project\\subtrack\\src\\main\\resources\\images\\play-circle-fill.png");
+        ImageIcon icon = null;
+        java.net.URL imgURL = EntryPanel.class.getResource("/images/play-circle-fill.png");
+
+        if (imgURL != null) {
+            icon = new ImageIcon(imgURL);
+        } else {
+            System.err.println("Resource not found: /images/play-circle-fill.png");
+        }
+
         JLabel iconLabel = new JLabel(icon);
         iconLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
