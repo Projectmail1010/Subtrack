@@ -38,7 +38,6 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.1.0</version>
                 <configuration>
-                    <!-- fully qualified name of your class with the main() -->
                     <mainClass>com.subtrack.ui.MainFrame</mainClass>
                 </configuration>
             </plugin>
